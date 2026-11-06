@@ -1022,6 +1022,7 @@
             ${kids.length > 1 ? `<div class="view-pick"><span class="vp-l">Viewing</span><div class="kids" role="group" aria-label="Choose child">${kids.map((k) => `<button data-act="child" data-id="${k.id}" aria-pressed="${k.id === childId}">${avatar(k.name, 'sm')}<span>${esc(firstName(k.name))} · ${esc(k.classId)}</span></button>`).join('')}</div></div>` : `<div class="view-pick hide-m"><span class="vp-l">Session</span><b>${esc((CFG.sessionLabel || '').replace('Session ', ''))}</b></div>`}
             ${looksSwitcher()}
             ${fsid ? `<a class="icon-btn" href="#/notices" aria-label="Notices">${IC.bell}${bell ? '<span class="pip"></span>' : ''}</a>` : ''}
+            <button class="icon-btn" type="button" data-act="logout" aria-label="Sign out" title="Sign out">${IC.out}</button>
           </div>
         </header>
         <div class="page-h"><div><p>${esc(cls ? cls.campusName : '')}</p><h1 class="display">${esc(cur.h)}</h1></div><div class="acts hide-m"><span class="live"><i></i>Live</span></div></div>
