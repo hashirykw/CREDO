@@ -1,217 +1,40 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-skin="senior" data-theme="mist">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Credo School &amp; College Network — Cambridge education, Karachi</title>
-<meta name="description" content="Credo School & College Network, Gulshan-e-Iqbal, Karachi: Preschool & Primary, Middle & O Level, Girls Campus and Credo College A Levels. Cambridge centres P6012 & PK741. #WeBelieve">
-<meta name="theme-color" content="#f8f5ef">
+<title>Credo Portal · Students, Parents & Teachers</title>
+<meta name="description" content="The Credo Portal for the Credo School & College Network, Karachi: daily diary, timetable, homework, notes, results, attendance and emergency notes for students, parents and teachers.">
+<meta name="theme-color" content="#d9e0f5">
 <link rel="canonical" href="https://credoschoolingsystem.nexlyr.solutions/">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Credo School & College Network · We believe.">
-<meta property="og:description" content="From pre-nursery to A2 — four Cambridge campuses in Gulshan-e-Iqbal, Karachi.">
+<meta property="og:title" content="Credo Portal · Students, Parents & Teachers">
+<meta property="og:description" content="Diary, timetable, homework, results and attendance for every Credo family — connected, live.">
 <meta property="og:image" content="https://credoschoolingsystem.nexlyr.solutions/assets/img/og.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="assets/img/brand/favicon.png" type="image/png">
 <link rel="apple-touch-icon" href="assets/img/brand/apple-touch-icon.png">
-<link rel="preload" href="assets/fonts/bodoni-moda-latin-500-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/manrope-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="assets/img/photos/college-highfive.webp" as="image">
-<link rel="stylesheet" href="assets/css/core.css">
-<link rel="stylesheet" href="assets/css/site.css">
-<script>document.documentElement.classList.add('js');try{var t=JSON.parse(localStorage.getItem('credo:theme'));if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"EducationalOrganization","name":"Credo School & College Network","foundingDate":"2017","url":"https://credoschoolingsystem.nexlyr.solutions/","logo":"https://credoschoolingsystem.nexlyr.solutions/assets/img/brand/lion-navy.webp","address":{"@type":"PostalAddress","streetAddress":"E-136–141, Main Abul Hasan Isphahani Road, Block 7, Gulshan-e-Iqbal","addressLocality":"Karachi","addressCountry":"PK"},"telephone":"+92-339-1127336","email":"info@credo.edu.pk","sameAs":["https://www.instagram.com/credo_college/","https://www.facebook.com/CredoCollege/","https://twitter.com/college_credo"]}</script>
+<link rel="preload" href="assets/fonts/bodoni-moda-latin-500-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/portal.css">
+<script>
+  /* paint the saved look before anything renders */
+  (function () {
+    var d = document.documentElement;
+    d.classList.add('js');
+    try {
+      var s = JSON.parse(localStorage.getItem('credo:look') || '{}');
+      d.dataset.skin = s.skin || 'senior';
+      d.dataset.theme = (d.dataset.skin === 'junior' ? s.junior : s.senior) || (d.dataset.skin === 'junior' ? 'night' : 'mist');
+    } catch (e) {}
+  })();
+</script>
 </head>
-<body data-page="home">
+<body>
+<div class="backdrop" aria-hidden="true"><i class="b1"></i><i class="b2"></i><i class="b3"></i><i class="b4"></i><span class="grain"></span></div>
+<div id="root"><noscript><p style="padding:2rem;font-family:sans-serif">The Credo Portal needs JavaScript turned on.</p></noscript></div>
 <script src="assets/js/data.js"></script>
-<script src="assets/js/core.js"></script>
-
-<main id="main">
-  <!-- HERO -->
-  <section class="hero" aria-labelledby="hero-title">
-    <img class="hero-watermark" src="assets/img/brand/lion-navy-lg.webp" alt="" aria-hidden="true">
-    <div class="wrap hero-grid">
-      <div>
-        <div class="hero-kicker">
-          <span class="chip"><span class="dot"></span>Early Bird Admissions · 2027–29</span>
-          <span class="chip">Cambridge · P6012 · PK741</span>
-        </div>
-        <h1 id="hero-title"><span class="l1">We believe</span><span class="rot" aria-live="off"><span class="on">in every child.</span><span>in character.</span><span class="gold">in no tuition.</span><span>in leaders.</span><span class="gold">in you.</span></span></h1>
-        <p class="lede">Credo is four Cambridge campuses in Block 7, Gulshan-e-Iqbal — one family that carries a child from the first day of pre-nursery to the final paper of A2.</p>
-        <div class="hero-cta">
-          <a class="btn btn-primary" href="admissions">Apply for admission<span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
-          <a class="btn" href="campuses">Explore the campuses<span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
-        </div>
-      </div>
-      <div class="stack" id="stack" aria-label="Credo campuses">
-        <div class="stack-float f1 glass-3"><span class="ico">A*</span><div><b>10–100%</b><div class="ink-3" style="font-size:.75rem">merit scholarships · AS</div></div></div>
-        <div class="stack-float f2 glass-3"><span class="ico">4</span><div><b>Campuses</b><div class="ink-3" style="font-size:.75rem">one Block 7 family</div></div></div>
-        <div class="stack-ui"><div class="dots" role="tablist" aria-label="Choose campus"></div></div>
-      </div>
-    </div>
-    <div class="wrap">
-      <div class="facts glass-2" role="list">
-        <div role="listitem"><b>2017</b><span>Founded in Karachi</span></div>
-        <div role="listitem"><b>4</b><span>Campuses in Block 7, Gulshan</span></div>
-        <div role="listitem"><b>2.5 → A2</b><span>Pre-nursery to A Level</span></div>
-        <div role="listitem"><b class="faculty-count">64</b><span>Faculty on Credo’s pages</span></div>
-        <div role="listitem"><b>0</b><span>Tuition needed — by policy</span></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- BELIEFS BAND -->
-  <div class="band marquee" aria-hidden="true">
-    <div class="marquee-track">
-      <span>Excellence</span><span>Empowerment</span><span>Innovation</span><span>#WeBelieve</span><span>Character</span><span>Cambridge</span><span>No tuition</span><span>Leaders of tomorrow</span>
-      <span>Excellence</span><span>Empowerment</span><span>Innovation</span><span>#WeBelieve</span><span>Character</span><span>Cambridge</span><span>No tuition</span><span>Leaders of tomorrow</span>
-    </div>
-  </div>
-
-  <!-- PATHWAY -->
-  <section class="section pathway" id="pathway" aria-labelledby="pw-title">
-    <div class="wrap section-head" data-reveal>
-      <h2 class="h2" id="pw-title">One journey. <span class="accent">Pre-nursery to A2.</span></h2>
-      <p class="lede">Eight stages, three Credo campuses, one standard. Follow the path a Credo child walks — from age two and a half to university.</p>
-    </div>
-    <div class="pw-viewport" id="pw-viewport">
-      <div class="pw-track" id="pw-track"><div class="pw-line" aria-hidden="true"></div></div>
-    </div>
-    <div class="pw-progress" aria-hidden="true"><i id="pw-progress"></i></div>
-  </section>
-
-  <!-- CAMPUSES -->
-  <section class="section" id="campuses" aria-labelledby="cp-title">
-    <div class="wrap">
-      <div class="section-head" data-reveal>
-        <h2 class="h2" id="cp-title">Four campuses, <span class="accent">one family.</span></h2>
-        <p class="lede">Every Credo campus sits within a few minutes of the next in Block 7, Gulshan-e-Iqbal — near Maskan and Disco Bakers.</p>
-      </div>
-      <div class="bento" id="bento"></div>
-    </div>
-  </section>
-
-  <!-- NO TUITION -->
-  <section class="section" id="difference" aria-labelledby="nt-title">
-    <div class="wrap nt">
-      <div class="nt-sticky" data-reveal>
-        <h2 id="nt-title">No tuition. <span>By design.</span></h2>
-        <p class="lede" style="margin-top:var(--space-md)">Credo believes a child simply does not need private tuition when the school provides a durable method of education. Here is the method.</p>
-        <div class="nt-photo"><img src="assets/img/photos/school-whiteboard.webp" alt="A Credo student solving a problem at the whiteboard" loading="lazy" decoding="async"></div>
-      </div>
-      <div class="nt-list">
-        <article class="nt-item glass-2" data-reveal><span class="n">1</span><div><h3>The finest faculty in Karachi</h3><p>If the person teaching the subject is exemplary, there is simply no need for a student to visit a coaching centre.</p></div></article>
-        <article class="nt-item glass-2" data-reveal><span class="n">2</span><div><h3>The syllabus restarts every year</h3><p>Most schools spread O Level over three years. At Credo the syllabus begins from scratch each year, so knowledge is reinforced again and again.</p></div></article>
-        <article class="nt-item glass-2" data-reveal><span class="n">3</span><div><h3>Past papers solved — and checked — in school</h3><p>Not simply handed out for home. Only checked answers let a student adjust their effort.</p></div></article>
-        <article class="nt-item glass-2" data-reveal><span class="n">4</span><div><h3>Study kits &amp; revision workshops</h3><p>Teachers’ notes, booklets and handouts all year; after the mocks, mandatory subject workshops instead of preparatory leave.</p></div></article>
-        <article class="nt-item glass-2" data-reveal><span class="n">5</span><div><h3>90% attendance, every month</h3><p>The one thing Credo asks of parents: regular attendance and committed home study. The rest is the school’s promise.</p></div></article>
-        <a class="link" href="academics#policies" data-reveal style="justify-self:start;margin-top:var(--space-sm)">How Credo teaches <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-      </div>
-    </div>
-  </section>
-
-  <!-- FACULTY WALL -->
-  <section class="section" aria-labelledby="fw-title">
-    <div class="wrap section-head" data-reveal>
-      <h2 class="h2" id="fw-title">The people behind <span class="accent">the promise.</span></h2>
-      <p class="lede">Karachi’s best-known Cambridge teachers, across Accounting, Business, Economics, the Sciences, Mathematics, Computer Science and the Humanities.</p>
-    </div>
-    <div class="fwall">
-      <div class="marquee"><div class="marquee-track" id="fw-a"></div></div>
-      <div class="marquee reverse"><div class="marquee-track" id="fw-b"></div></div>
-    </div>
-    <div class="wrap" style="margin-top:var(--space-lg)"><a class="btn" href="faculty">Meet the full faculty<span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></div>
-  </section>
-
-  <!-- DEAN -->
-  <section class="section-tight" aria-labelledby="dean-title">
-    <div class="wrap">
-      <div class="dean glass-2 gold-edge" data-reveal>
-        <div class="dean-photo"><img src="assets/img/photos/dean-razi-nawab.webp" alt="Air Vice Marshal (R) Syed Razi-ul-Hasan Nawab" loading="lazy" decoding="async"></div>
-        <div>
-          <span class="eyebrow" id="dean-title">Message from the Dean &amp; Director</span>
-          <blockquote style="margin-top:var(--space-sm)">Let go of your aims in our hands. Let the “Credo Team” contribute in empowering your child to become a better human being.</blockquote>
-          <cite><b>AVM (R) Syed Razi-ul-Hasan Nawab, HI-M</b><span>Dean &amp; Director · Credo</span></cite>
-          <a class="link" href="about#dean" style="margin-top:var(--space-md)">Read the full message <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- HOUSES -->
-  <section class="section" aria-labelledby="hs-title">
-    <div class="wrap">
-      <div class="section-head center" data-reveal>
-        <h2 class="h2" id="hs-title">Cave. Congo. <span class="accent">Cape.</span></h2>
-        <p class="lede">Three houses, one rivalry worth having — debates, sports and challenges that build school spirit on every campus.</p>
-      </div>
-      <div class="houses" id="houses"></div>
-    </div>
-  </section>
-
-  <!-- PORTAL TEASER -->
-  <section class="section" aria-labelledby="pt-title">
-    <div class="wrap pt">
-      <div data-reveal>
-        <h2 class="h2" id="pt-title">The school day, <span class="accent">in your pocket.</span></h2>
-        <p class="lede" style="margin-top:var(--space-sm)">The Credo Portal keeps students, parents and teachers on the same page — the daily diary, timetable, assignments, notes, results and urgent notices, synced the moment a teacher posts.</p>
-        <div class="pt-roles">
-          <a href="portal#student" class="glass"><span class="ri">ST</span><div><b>Students</b><small>Diary, timetable, assignments, notes</small></div><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-          <a href="portal#parent" class="glass"><span class="ri">PA</span><div><b>Parents</b><small>Progress, results, attendance, sign the diary</small></div><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-          <a href="portal#teacher" class="glass"><span class="ri">TE</span><div><b>Teachers</b><small>Post diary, homework, marks, notices</small></div><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-        </div>
-      </div>
-      <div class="pt-board glass-2 gold-edge" data-reveal data-tilt="4" aria-label="Portal preview with sample data">
-        <div class="pt-alert"><b>Emergency note</b> Sample: early dismissal at 12:30 today — please collect your child.</div>
-        <div class="pt-row">
-          <div class="pt-tile"><div class="lbl"><span>Daily diary</span><span>Today</span></div>
-            <ul class="pt-diary"><li><span class="subj">MATH</span>Exercise 7.2, Q1–12</li><li><span class="subj">ENG</span>Read chapter 4, summary</li><li><span class="subj">PHY</span>Bring lab journal</li></ul></div>
-          <div class="pt-tile"><div class="lbl"><span>Results</span><span>Term 1</span></div><div class="pt-bars"><i style="height:82%"></i><i style="height:64%"></i><i style="height:91%"></i><i style="height:73%"></i><i style="height:86%"></i></div></div>
-        </div>
-        <div class="pt-tile"><div class="lbl"><span>Timetable</span><span>Monday</span></div><div class="pt-tt"><span>ENG</span><span>MATH</span><span class="now">PHY</span><span>BREAK</span><span>CHEM</span><span>ISL</span></div></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- VOICES -->
-  <section class="section-tight" aria-labelledby="vc-title">
-    <div class="wrap">
-      <div class="section-head" data-reveal><h2 class="h2" id="vc-title">In their <span class="accent">words.</span></h2></div>
-      <div class="grid cols-3" id="voices"></div>
-    </div>
-  </section>
-
-  <!-- PLACEMENTS -->
-  <section class="section-tight unis" aria-labelledby="un-title">
-    <div class="wrap section-head" data-reveal>
-      <h2 class="h2" id="un-title">From Block 7 <span class="accent">to the world.</span></h2>
-      <p class="lede">Credo College graduates have been placed at leading universities in Pakistan and abroad.</p>
-    </div>
-    <div class="marquee"><div class="marquee-track" id="uni-a"></div></div>
-    <div class="marquee reverse" style="margin-top:12px"><div class="marquee-track" id="uni-b"></div></div>
-  </section>
-
-  <!-- CTA -->
-  <section class="section" aria-labelledby="cta-title">
-    <div class="wrap">
-      <div class="cta" data-reveal>
-        <img src="assets/img/photos/college-graduates.webp" alt="" loading="lazy" decoding="async">
-        <span class="chip"><span class="dot"></span>Early Bird Admissions · Session 2027–29</span>
-        <h2 id="cta-title" style="margin-top:var(--space-md)">Your child’s place <span>is waiting.</span></h2>
-        <p>Admissions are open across the network — Preschool &amp; Primary, Middle &amp; O Levels, the Girls Campus and Credo College A Levels.</p>
-        <div class="hero-cta">
-          <a class="btn btn-gold" href="admissions">Start your application<span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
-          <a class="btn" href="contact" style="--b-ink:var(--white);--b-bg:oklch(100% 0 0 / .12);border-color:oklch(100% 0 0 / .25)">Book a campus tour<span class="ic" style="background:var(--white);color:var(--brand-navy-deep)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
-        </div>
-      </div>
-    </div>
-  </section>
-</main>
-<div id="footer"></div>
-
-<script src="assets/vendor/gsap.min.js" defer></script>
-<script src="assets/vendor/ScrollTrigger.min.js" defer></script>
-<script src="assets/vendor/lenis.min.js" defer></script>
-<script src="assets/js/pages.js" defer></script>
+<script src="assets/js/portal-config.js"></script>
+<script src="assets/js/portal.js"></script>
 </body>
 </html>

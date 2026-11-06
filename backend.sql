@@ -8,7 +8,8 @@ create extension if not exists pgcrypto;
 create table if not exists campuses (id text primary key, name text not null);
 create table if not exists classes (
   id text primary key, name text not null, campus_id text references campuses(id),
-  class_teacher text, room text, timetable jsonb not null default '{}'::jsonb
+  class_teacher text, room text, timetable jsonb not null default '{}'::jsonb,
+  grade int not null default 6   -- 0 = preschool; 1–5 get the junior portal design, 6+ the senior glass design
 );
 create table if not exists profiles (               -- one row per auth user
   user_id uuid primary key references auth.users(id) on delete cascade,
