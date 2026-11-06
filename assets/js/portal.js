@@ -351,6 +351,47 @@
     saveLook(sk, html.dataset.theme); metaTheme();
   }
 
+  /* ---------- in-place DOM patching ----------
+     Rebuilding innerHTML on every tap reloaded every image and reset scroll,
+     carousels and animations — that was the flashing. morph() keeps existing
+     nodes and only changes what differs. */
+  const FORM_TAGS = { INPUT: 1, TEXTAREA: 1, SELECT: 1 };
+  function morph(host, markup) {
+    const t = doc.createElement('template'); t.innerHTML = markup;
+    patchKids(host, t.content);
+  }
+  function same(x, y) {
+    if (x.nodeType !== y.nodeType || x.nodeName !== y.nodeName) return false;
+    if (x.nodeType === 1 && (x.getAttribute('data-k') || '') !== (y.getAttribute('data-k') || '')) return false;
+    return true;
+  }
+  function patchKids(a, b) {
+    const an = [...a.childNodes], bn = [...b.childNodes];
+    bn.forEach((y, i) => {
+      const x = an[i];
+      if (!x) a.appendChild(y);
+      else if (!same(x, y)) a.replaceChild(y, x);
+      else if (x.nodeType !== 1) { if (x.nodeValue !== y.nodeValue) x.nodeValue = y.nodeValue; }
+      else patchEl(x, y);
+    });
+    for (let i = an.length - 1; i >= bn.length; i--) an[i].remove();
+  }
+  function patchEl(x, y) {
+    for (const at of [...x.attributes]) if (!y.hasAttribute(at.name)) x.removeAttribute(at.name);
+    for (const at of [...y.attributes]) if (x.getAttribute(at.name) !== at.value) x.setAttribute(at.name, at.value);
+    if (FORM_TAGS[x.tagName]) {
+      if (x.tagName === 'SELECT') patchKids(x, y);
+      if (doc.activeElement !== x) {
+        if (x.type === 'checkbox' || x.type === 'radio') x.checked = y.hasAttribute('checked');
+        else if (x.tagName === 'TEXTAREA') x.value = y.textContent;
+        else if (x.tagName === 'SELECT') { const o = y.querySelector('option[selected]') || y.querySelector('option'); if (o) x.value = o.value; }
+        else x.value = y.getAttribute('value') ?? '';
+      }
+      return;
+    }
+    patchKids(x, y);
+  }
+
   /* ---------- feedback: prism stripe + toast + confetti ---------- */
   let pulseT;
   function pulse(state, ms = 1400) {
@@ -429,9 +470,11 @@
       <span class="kick">${esc(p.kick)}</span><h3>${esc(p.h)}</h3><p>${esc(p.p)}</p>
       <div class="cta">${p.cta.map(([t, u, main]) => `<a class="btn ${main ? 'btn-white' : 'btn-glass-w'}" href="${esc(u)}" ${u.startsWith('http') ? 'target="_blank" rel="noopener"' : ''}>${esc(t)}${u.startsWith('http') ? IC.ext : ''}</a>`).join('')}</div></article>`;
   }
+  const CAR = {};
   function promoCarousel(keys) {
-    return `<div class="carousel" data-carousel>${keys.map((k, i) => `<div class="slide ${i ? '' : 'on'}">${promoCard(k)}</div>`).join('')}
-      <div class="dots">${keys.map((k, i) => `<button type="button" data-act="slide" data-v="${i}" aria-label="Slide ${i + 1}" aria-pressed="${!i}"></button>`).join('')}</div></div>`;
+    const key = keys.join('-'), on = (CAR[key] || 0) % keys.length;
+    return `<div class="carousel" data-carousel="${key}" data-k="${key}">${keys.map((k, i) => `<div class="slide ${i === on ? 'on' : ''}">${promoCard(k)}</div>`).join('')}
+      <div class="dots">${keys.map((k, i) => `<button type="button" data-act="slide" data-v="${i}" aria-label="Slide ${i + 1}" aria-pressed="${i === on}"></button>`).join('')}</div></div>`;
   }
   const housesCard = (house) => `<div class="card glass spot"><div class="card-h"><h2>Credo houses</h2>${house ? `<span class="tag solid">You’re in ${esc(house)}</span>` : ''}</div>
     <div class="crests" style="justify-content:space-between">${CR.life.houses.map((h) => `<div style="display:grid;justify-items:center;gap:6px;${house && h.name !== house ? 'opacity:.55' : ''}"><img src="${h.crest}" alt="House ${esc(h.name)} crest"><b style="font-size:.8rem">${esc(h.name)}</b></div>`).join('')}</div>
@@ -955,8 +998,10 @@
     const sp = sidePromo();
     const cls = fsid ? klass(student(fsid).classId) : myClass();
     doc.title = `${cur.label} · Credo Portal`;
-    const keepScroll = enter ? 0 : scrollY;
-    root.innerHTML = `<div class="frame ${booted ? '' : 'boot'}" id="app">
+    const view = $('#main.view');
+    if (enter && view) { view.classList.remove('enter'); void view.offsetWidth; }
+    const menuOpen = $('#app')?.classList.contains('menu-open') && !enter;
+    morph(root, `<div class="frame ${booted ? '' : 'boot'} ${menuOpen ? 'menu-open' : ''}" id="app" data-k="app">
       <span class="prism-line"></span>
       <aside class="side" aria-label="Portal menu">
         <a class="brand" href="#/today"><img src="assets/img/brand/${html.dataset.theme === 'prism' || html.dataset.theme === 'night' ? 'lion-gold' : 'lion-navy'}.webp" alt=""><span><b>CREDO</b><small>${session.role === 'teacher' ? 'Staff portal' : sk === 'junior' ? 'Junior portal' : 'Student portal'}</small></span></a>
@@ -980,14 +1025,14 @@
           </div>
         </header>
         <div class="page-h"><div><p>${esc(cls ? cls.campusName : '')}</p><h1 class="display">${esc(cur.h)}</h1></div><div class="acts hide-m"><span class="live"><i></i>Live</span></div></div>
-        <div class="view ${enter ? 'enter' : ''}" id="main">${cur.v()}</div>
+        <div class="view ${enter ? 'enter' : ''}" id="main" data-k="${esc(cur.id + '|' + sk + '|' + (childId || ''))}">${cur.v()}</div>
         ${ticker()}
         <p class="nexlyr">Credo School & College Network · Designed & developed by <a href="https://nexlyr.solutions" target="_blank" rel="noopener">Nexlyr Solutions</a></p>
       </div>
       <nav class="tabbar glass strong" aria-label="Quick">${views.slice(0, 4).map((v) => `<a href="#/${v.id}" ${v.id === cur.id ? 'aria-current="page"' : ''}>${IC[v.icon]}${v.id === 'today' ? 'Today' : v.label.replace(/^My /, '').split(' ')[0].replace(/^./, (x) => x.toUpperCase())}</a>`).join('')}<a href="#" data-act="menu">${IC.menu}More</a></nav>
-    </div>`;
+    </div>`);
     booted = true;
-    if (keepScroll) scrollTo(0, keepScroll); else if (enter) scrollTo(0, 0);
+    if (enter) scrollTo(0, 0);
     const log = $('#chat-log'); if (log) log.scrollTop = log.scrollHeight;
     after(enter);
   }
@@ -1013,12 +1058,12 @@
     if (reduce) return;
     carT = setInterval(() => $$('[data-carousel]').forEach((c) => { if (c.matches(':hover')) return; const s = $$('.slide', c); const i = s.findIndex((x) => x.classList.contains('on')); goSlide(c, (i + 1) % s.length); }), 6500);
   }
-  function goSlide(c, i) { $$('.slide', c).forEach((s, k) => s.classList.toggle('on', k === i)); $$('.dots button', c).forEach((b, k) => b.setAttribute('aria-pressed', k === i)); }
+  function goSlide(c, i) { CAR[c.dataset.carousel] = i; $$('.slide', c).forEach((s, k) => s.classList.toggle('on', k === i)); $$('.dots button', c).forEach((b, k) => b.setAttribute('aria-pressed', k === i)); }
 
   /* ============================================================
      LOGIN
      ============================================================ */
-  let loginRole = 'student', rotT, bgT;
+  let loginRole = 'student', rotT, bgT, wi = 0, bi = 0;
   const DEMO = [
     { role: 'student', id: 'CS-26-0917', name: 'Ayaan Siddiqui', label: 'Student · Grade 9', note: 'Senior glass design' },
     { role: 'student', id: 'CP-26-0311', name: 'Inaya Siddiqui', label: 'Student · Grade 3', note: 'Junior design' },
@@ -1034,13 +1079,13 @@
     doc.title = 'Sign in · Credo Portal';
     const fac = CR.faculty.filter((f) => f.img).filter((f, i, a) => a.findIndex((x) => x.name === f.name) === i).slice(0, 24);
     const ROLE_IC = { student: IC.user, parent: IC.users, teacher: IC.teach };
-    root.innerHTML = `<div class="login">
+    morph(root, `<div class="login" data-k="login">
       <section class="show" aria-label="About Credo">
-        <div class="bgs">${LOGIN_BG.map((n, i) => `<img class="${i ? '' : 'on'}" src="${CR.ph(n)}" alt="" ${i ? 'loading="lazy"' : ''}>`).join('')}</div>
+        <div class="bgs">${LOGIN_BG.map((n, i) => `<img class="${i === bi ? 'on' : ''}" src="${CR.ph(n)}" alt="">`).join('')}</div>
         <div class="top"><span class="brand"><img src="assets/img/brand/lion-gold.webp" alt=""><span><b>CREDO</b><small>School & College Network</small></span></span><span class="tag">${esc(CR.network.hashtag)}</span></div>
         <div class="copy">
           <span class="eyebrow">The Credo Portal · ${esc(CFG.sessionLabel || '')}</span>
-          <h1>We believe in<span class="rot"><span>${WORDS[0]}</span></span></h1>
+          <h1>We believe in<span class="rot"><span>${WORDS[wi]}</span></span></h1>
           <p class="lede">Diary, timetable, homework, results and attendance — one live portal for every Credo student, parent and teacher, from Pre-nursery to A2.</p>
           <div class="campus-row">${CR.campuses.map((c) => `<a class="camp" href="${c.site}" target="_blank" rel="noopener"><i>${esc(c.centre || c.grades)}</i><b>${esc(c.name)}</b><span>${esc(c.stage)}</span></a>`).join('')}</div>
           <div class="admit"><span class="prism-line"></span><div><b>${esc(CR.network.session)}</b><span>Four campuses in Block 7, Gulshan-e-Iqbal · UAN ${esc(CR.network.uan)}</span></div><a class="btn btn-white btn-sm" href="${CR.network.skoolify}" target="_blank" rel="noopener">Apply on Skoolify ${IC.ext}</a></div>
@@ -1059,9 +1104,8 @@
           <div class="foot"><span>Forgot your ID or password? Call your campus office.</span><a class="link" href="https://credo.edu.pk" target="_blank" rel="noopener">credo.edu.pk ${IC.ext}</a></div>
         </form>
       </main>
-    </div>`;
+    </div>`);
     if (!reduce) {
-      let wi = 0, bi = 0;
       rotT = setInterval(() => { wi = (wi + 1) % WORDS.length; const r = $('.rot'); if (r) r.innerHTML = `<span>${WORDS[wi]}</span>`; }, 3200);
       bgT = setInterval(() => { const imgs = $$('.show .bgs img'); if (!imgs.length) return; imgs[bi].classList.remove('on'); bi = (bi + 1) % imgs.length; imgs[bi].classList.add('on'); }, 5200);
     }
