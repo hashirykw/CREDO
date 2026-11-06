@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 Disallow: /portal
-Sitemap: https://credoschoolingsystem.nexlyr.solutions/sitemap.xml
+Sitemap: https://credo.nexlyr.solutions/sitemap.xml

@@ -3,7 +3,7 @@
 The portal for the Credo School & College Network (Gulshan-e-Iqbal, Karachi). It is portal-only: the old marketing pages are gone, and Credo is promoted inside the portal instead.
 Static HTML/CSS/JS, no build step. Every asset (photos, logos, fonts) is a file in this repo; nothing loads from another site.
 
-Live domain: `credoschoolingsystem.nexlyr.solutions`
+Live domain: `credo.nexlyr.solutions`
 
 ## Two designs, five looks
 

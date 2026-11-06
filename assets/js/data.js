@@ -27,7 +27,7 @@
     cambridge: [{ code: 'P6012', name: 'Credo College' }, { code: 'PK741', name: 'Credo School (O Level)' }],
     uan: '03-11-11-CREDO (27336)',
     area: 'Block 7, Gulshan-e-Iqbal, Karachi — near Maskan / Disco Bakers',
-    domain: 'https://credoschoolingsystem.nexlyr.solutions',
+    domain: 'https://credo.nexlyr.solutions',
     skoolify: 'https://credo.skoolify.app/admissions-college/apply',
     session: 'Early Bird Admissions · Session 2027–29'
   };
